@@ -123,7 +123,10 @@ export const Theater = () => {
   return (
     <div className="theater-bac">
       <Agenda title={location.state.title}></Agenda>
-      <Summary_text></Summary_text>
+      <Summary_text
+        speechRecord={speechRecords}
+        currSpeechRecord={currSpeechRecord}
+      ></Summary_text>
     </div>
   );
 };
