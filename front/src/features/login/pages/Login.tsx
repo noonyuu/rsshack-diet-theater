@@ -3,15 +3,21 @@ import { SimpleIconsLine } from "../assets/Line";
 import LoginBtn from "../components/LoginBtn";
 import DietLogo from "../assets/diet-logo.png";
 import { useEffect } from "react";
+import { loopAnimation } from "../utils/Reload";
+import styles from "../styles/turnAnimation.module.css";
 
 export const Login = () => {
+  // アニメーションのループ処理
+  useEffect(() => {
+    loopAnimation("logo", styles.target, 2000);
+  }, []);
 
   return (
     <main className="mt-16 flex-1">
       <div className="text-center">
         <img
           id="logo"
-          className="mx-auto size-60"
+          className={`${styles.target} mx-auto size-60`}
           src={DietLogo}
           alt="diet-logo"
         />
