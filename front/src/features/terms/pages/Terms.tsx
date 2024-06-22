@@ -1,16 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 
 export const Terms = () => {
   const navigate = useNavigate();
+  const [state, setState] = useState(false);
   const next = () => {
     try {
       localStorage.setItem("terms", "yes");
     } catch (e) {
       console.log(e);
     }
-    navigate("/agenda");
+    navigate("/home");
   };
 
   const cancel = () => {
@@ -18,8 +19,8 @@ export const Terms = () => {
   };
 
   useEffect(() => {
-    localStorage.getItem("terms") ? navigate("/agenda") : navigate("/");
-  }, []);
+    localStorage.getItem("terms") ? navigate("/home") : navigate("/");
+  }, [setState]);
 
   return (
     <main className="bg-bac-main flex-1">
@@ -33,7 +34,9 @@ export const Terms = () => {
           <section>
             <h2 className="mb-4 mt-16 font-bold">出展一覧</h2>
             <p>出典 --&gt; https://kokkai.ndl.go.jp/api.html</p>
-            <p>https://kokkai.ndl.go.jp/api.html）で提供されるデータを加工して作成</p>
+            <p>
+              https://kokkai.ndl.go.jp/api.html）で提供されるデータを加工して作成
+            </p>
           </section>
           {/* 第1条 */}
           <section>
