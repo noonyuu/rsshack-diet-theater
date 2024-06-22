@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import person from "../../img/person.png";
 import "./Summary_text.css";
+import { Animation } from "../animation/Animation";
 
 interface Props {
   speechRecord: any;
@@ -11,7 +12,7 @@ export const Summary_text: React.FC<Props> = ({
   speechRecord,
   currSpeechRecord,
 }) => {
-  useEffect(() => {}, [speechRecord, currSpeechRecord]);
+  
 
   if (
     speechRecord.length === 0 ||
@@ -27,6 +28,9 @@ export const Summary_text: React.FC<Props> = ({
   return (
     <div className="wrapper">
       <img src={person} className="person" alt="person" />
+      <Animation
+        arg={speechRecord[currSpeechRecord].AnimationPoint}
+      ></Animation>
       <div className="name_area_bg">
         <p className="name_area">{speechRecord[currSpeechRecord].Speaker}</p>
       </div>
@@ -44,6 +48,11 @@ export const Summary_text: React.FC<Props> = ({
             ))}
         </p>
       </div>
+      <button
+        type="button"
+        className="absolute right-[20%] top-[30%] text-3xl text-white"
+        // onClick={() => next()}
+      ></button>
     </div>
   );
 };
