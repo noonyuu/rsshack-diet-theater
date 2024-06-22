@@ -4,6 +4,7 @@ import { Home } from "./features/home/pages/Home";
 import { ContextWrapper } from "./context/ContextWrapper";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { Theater } from "./features/theater/pages/Theater";
 import { useEffect } from "react";
 import { GetUser, RefreshToken } from "./utils/Auth";
 import { Terms } from "./features/terms/pages/Terms";
@@ -15,34 +16,38 @@ export const Routers = () => {
       localStorage.getItem("terms") ? "/home" : navigate("/");
     }, []);
     
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const [logInned, userInfo] = await GetUser();
-        console.log(userInfo);
-        if (logInned && userInfo) {
-          // トークン更新
-          RefreshToken();
-          // ログイン済みの場合
-          if (
-            window.location.pathname === "/" ||
-            window.location.pathname === "/login"
-          ) {
-            navigate("/home");
-          } else {
-            navigate(window.location.pathname, { replace: true });
-          }
-        } else {
-          navigate("/login");
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const [logInned, userInfo] = await GetUser();
+  //       console.log(userInfo);
+  //       if (logInned && userInfo) {
+  //         // トークン更新
+  //         RefreshToken();
+  //         // ログイン済みの場合
+  //         if (
+  //           window.location.pathname === "/" ||
+  //           window.location.pathname === "/login"
+  //         ) {
+  //           navigate("/home");
+  //         } else {
+  //           navigate(window.location.pathname, { replace: true });
+  //         }
+  //       } else {
+  //         navigate("/login");
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, []);
 
-  const routesWithoutHeaderAndFooter = [{ path: "/login", element: <Login /> },{path: "/", element: <Terms />}];
+  const routesWithoutHeaderAndFooter = [
+    { path: "/login", element: <Login /> },
+    { path: "/", element: <Terms /> },
+    { path: "/theater", element: <Theater /> },
+  ];
   const routesWithHeadedrAndFooter = [{ path: "/home", element: <Home /> }];
 
   interface LayoutProps {
