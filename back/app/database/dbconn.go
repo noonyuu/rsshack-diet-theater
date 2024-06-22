@@ -36,7 +36,7 @@ func Init() error {
 	db = dbConn
 
 	// MeetingRecordとSpeechRecordのスキーマをマイグレート
-	if err := db.AutoMigrate(&MeetingRecord{}, &SpeechRecord{}); err != nil {
+	if err := db.AutoMigrate(&MeetingRecord{}, &SpeechRecord{}, &AccessControl{}); err != nil {
 		return err
 	}
 	//初期化済みにする

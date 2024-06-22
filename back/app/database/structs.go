@@ -32,3 +32,13 @@ type SpeechRecord struct {
 	SpeechSummary   string `gorm:"type:text;not null"`                   // 要約
 	AnimationPoint  string `gorm:"type:varchar(5)"`                      // アニメーションポイント
 }
+
+type AccessControl struct {
+	SpeechID uint `gorm:"primaryKey"`
+	ViewCount    int  `gorm:"not null default 0"`
+}
+
+type Good struct {
+	ID       uint   `gorm:"primaryKey"`
+	SpeechID string `gorm:"primaryKey;type:varchar(26);not null"`
+}

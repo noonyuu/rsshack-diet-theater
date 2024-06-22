@@ -66,6 +66,11 @@ func main() {
 		})
 	})
 
+	//	会議の閲覧回数をカウント
+	server.POST("/view/:speechID", func(c *gin.Context) {
+		endpoint.Count(c)
+	})
+
 	//	会議レコードの全件取得
 	server.GET("/meeting_record/select/all", func(c *gin.Context) {
 		endpoint.All(c)
