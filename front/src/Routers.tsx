@@ -1,14 +1,49 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Login } from "./features/login/pages/Login";
 import { Home } from "./features/home/pages/Home";
 import { ContextWrapper } from "./context/ContextWrapper";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { useEffect } from "react";
+import { GetUser, RefreshToken } from "./utils/Auth";
+import { Terms } from "./features/terms/pages/Terms";
 
 export const Routers = () => {
-  const routesWithoutHeaderAndFooter = [{ path: "/login", element: <Login /> }];
-  const routesWithHeadedrAndFooter = [{ path: "/home", element: <Home /> }]
+    const navigate = useNavigate();
 
+    useEffect(() => {
+      localStorage.getItem("terms") ? "/home" : navigate("/");
+    }, []);
+    
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const [logInned, userInfo] = await GetUser();
+        console.log(userInfo);
+        if (logInned && userInfo) {
+          // トークン更新
+          RefreshToken();
+          // ログイン済みの場合
+          if (
+            window.location.pathname === "/" ||
+            window.location.pathname === "/login"
+          ) {
+            navigate("/home");
+          } else {
+            navigate(window.location.pathname, { replace: true });
+          }
+        } else {
+          navigate("/login");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const routesWithoutHeaderAndFooter = [{ path: "/login", element: <Login /> },{path: "/", element: <Terms />}];
+  const routesWithHeadedrAndFooter = [{ path: "/home", element: <Home /> }];
 
   interface LayoutProps {
     element: JSX.Element;
