@@ -114,12 +114,13 @@ export const Theater = () => {
       const timer = setTimeout(() => {
         <div id="wrap"></div>;
         // アニメーションが終了したらagenda画面に遷移する
-        navigate("/agenda");
+        navigate("/home");
       }, 1000); // 3000ミリ秒後に実行
 
       return () => clearTimeout(timer); // コンポーネントのクリーンアップ時にタイマーをクリア
     }
   }, [isFinish, navigate]);
+  
   return (
     <div className="theater-bac">
       <Agenda title={location.state.title}></Agenda>
