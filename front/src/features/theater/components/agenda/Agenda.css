@@ -25,12 +25,16 @@ body {
   right: 0;
   z-index: 999;
   transform: skew(0deg, -4deg);
+
 }
 
 .agenda_text {
-  font-size: 70px;
+  font-size: 4rem;
   font-weight: bold;
   position: absolute;
   top: 20%;
-  left: 30%;
+  /* 文字数多い時にはみ出るから修正 */
+  text-align: center;
+  width: 100%;
+  /* left: 30%; */
 }

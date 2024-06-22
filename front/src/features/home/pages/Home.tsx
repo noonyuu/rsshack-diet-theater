@@ -18,13 +18,15 @@ export const Home = () => {
 
   interface Entity {
     detailId: string;
+    title: string;
   }
 
-  const detail = (val: string) => {
+  const detail = (val: string, NameOfHouse: string) => {
     const entity: Entity = {
       detailId: val,
+      title: NameOfHouse,
     };
-    navigate("/secret/chat", { state: entity });
+    navigate("/theater", { state: entity });
   };
 
 useEffect(() => {
@@ -52,31 +54,33 @@ useEffect(() => {
       {/* ヘッダーで隠れるところ */}
       <div className="pt-16"></div>
       {/* <CustomDateSelect />*/}
-      <div className="bg-subwhite mx-6 md:mx-16 mt-20 md:mt-28 grid justify-center rounded-3xl md:grid-cols-2 lg:grid-cols-3">
-      {/* <div className="w-100 h-500 bg-subwhite mx-16 mt-28 flex flex-wrap justify-center rounded-3xl"> */}
+      <div className="bg-subwhite mx-6 mt-20 grid justify-center rounded-3xl md:mx-16 md:mt-28 md:grid-cols-2 lg:grid-cols-3">
+        {/* <div className="w-100 h-500 bg-subwhite mx-16 mt-28 flex flex-wrap justify-center rounded-3xl"> */}
         {meetingRecord.map((record, index) => (
           <div
             key={record.MeetingRecordId || index}
-            className="relative overflow-hidden py-4 px-6 md:p-10"
+            className="relative overflow-hidden px-6 py-4 md:p-10"
           >
-            <div>
-              {record.NameOfHouse === '参議院' ? (
+            <button
+              onClick={() => detail(record.IssueID, record.NameOfMeeting)}
+            >
+              {record.NameOfHouse === "参議院" ? (
                 <img src={san_ticket} alt="" className="w-[100%]" />
-              ) : record.NameOfHouse === '衆議院' ? (
+              ) : record.NameOfHouse === "衆議院" ? (
                 <img src={syu_ticket} alt="" className="w-[100%]" />
-              ) : record.NameOfHouse === '両院' ? (
+              ) : record.NameOfHouse === "両院" ? (
                 <img src={ryou_ticket} alt="" className="w-[100%]" />
               ) : (
                 <img src="" alt="" />
               )}
-            </div>
-            <div className="absolute left-[18%] top-[20%] w-[44%] md:left-[20%] md:top-[30%] md:w-[40%] text-sm md:text-lg overflow-hidden">
+            </button>
+            <div className="absolute left-[18%] top-[20%] w-[44%] overflow-hidden text-sm md:left-[20%] md:top-[30%] md:w-[40%] md:text-lg">
               <div className="block">
                 <>第{record.Session}回&emsp;</>
                 <>{record.NameOfMeeting}</>
               </div>
             </div>
-            <div className="absolute right-6 bottom-8 md:bottom-[26%] w-[50%] text-current text-sm md:text-base">
+            <div className="absolute bottom-8 right-6 w-[50%] text-sm text-current md:bottom-[26%] md:text-base">
               <>{record.Date}</>
             </div>
           </div>
