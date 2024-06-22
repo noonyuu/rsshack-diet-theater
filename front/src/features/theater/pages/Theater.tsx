@@ -69,6 +69,23 @@ export const Theater = () => {
       addEventListener("keyup", (e) => handleKeyUp(e));
     }
   }, [isFirstLoad]);
+  const [showAnimation, setShowAnimation] = useState(false);
+
+  useEffect(() => {
+    // アニメーション表示条件をリセット
+    setShowAnimation(false);
+    if (
+      speechRecords[currSpeechRecord] &&
+      speechRecords[currSpeechRecord].AnimationPoint !== "0"
+    ) {
+      // 1秒後にアニメーション表示状態をtrueに設定
+      const timer = setTimeout(() => {
+        setShowAnimation(true);
+      }, 1000);
+      // コンポーネントのアンマウント時にタイマーをクリア
+      return () => clearTimeout(timer);
+    }
+  }, [currSpeechRecord, speechRecords]);
 
   // 次のスピーチレコード
   const next = () => {
@@ -90,24 +107,6 @@ export const Theater = () => {
     setIsFinish(true);
   };
 
-  const [showAnimation, setShowAnimation] = useState(false);
-
-  useEffect(() => {
-    // アニメーション表示条件をリセット
-    setShowAnimation(false);
-    if (
-      speechRecords[currSpeechRecord] &&
-      speechRecords[currSpeechRecord].AnimationPoint !== "0"
-    ) {
-      // 1秒後にアニメーション表示状態をtrueに設定
-      const timer = setTimeout(() => {
-        setShowAnimation(true);
-      }, 1000);
-      // コンポーネントのアンマウント時にタイマーをクリア
-      return () => clearTimeout(timer);
-    }
-  }, [currSpeechRecord, speechRecords]);
-
   useEffect(() => {
     if (isFinish) {
       // エンディングアニメーションの終了を待つ
@@ -120,7 +119,7 @@ export const Theater = () => {
       return () => clearTimeout(timer); // コンポーネントのクリーンアップ時にタイマーをクリア
     }
   }, [isFinish, navigate]);
-  
+
   return (
     <div className="theater-bac">
       <Agenda title={location.state.title}></Agenda>
