@@ -4,11 +4,14 @@ import { Home } from "./features/home/pages/Home";
 import { ContextWrapper } from "./context/ContextWrapper";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { Theater } from "./features/theater/pages/Theater";
 
 export const Routers = () => {
-  const routesWithoutHeaderAndFooter = [{ path: "/login", element: <Login /> }];
-  const routesWithHeadedrAndFooter = [{ path: "/home", element: <Home /> }]
-
+  const routesWithoutHeaderAndFooter = [
+    { path: "/login", element: <Login /> },
+    { path: "/theater", element: <Theater /> },
+  ];
+  const routesWithHeadedrAndFooter = [{ path: "/home", element: <Home /> }];
 
   interface LayoutProps {
     element: JSX.Element;

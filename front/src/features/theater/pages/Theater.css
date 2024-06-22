@@ -1,0 +1,8 @@
+html,
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: url(../img/theater.png) center / cover;
+  overflow: hidden; /* スクロールを無効にする */
+}
