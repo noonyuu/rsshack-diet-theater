@@ -74,7 +74,7 @@ useEffect(() => {
                 <img src="" alt="" />
               )}
             </button>
-            <div className="absolute left-[18%] top-[20%] w-[44%] overflow-hidden text-sm md:left-[20%] md:top-[30%] md:w-[40%] md:text-lg">
+            <div className="h-1/3 absolute left-[18%] top-[20%] w-[44%] overflow-hidden text-sm md:left-[20%] md:top-[30%] md:w-[40%] md:text-lg hover:overflow-visible hover:bg-white hover:h-full z-10">
               <div className="block">
                 <>第{record.Session}回&emsp;</>
                 <>{record.NameOfMeeting}</>
