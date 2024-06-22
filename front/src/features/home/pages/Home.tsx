@@ -54,7 +54,7 @@ useEffect(() => {
       {/* ヘッダーで隠れるところ */}
       <div className="pt-16"></div>
       <CustomDateSelect onChange={handleDateChange} value={selectedDate}/>
-      <div className="bg-subwhite mx-6 md:mx-16 mt-4 grid justify-center rounded-3xl md:grid-cols-2 lg:grid-cols-3">
+      <div className="bg-subwhite mx-6 md:mx-16 mt-4 mb-8 grid justify-center rounded-3xl md:grid-cols-2 lg:grid-cols-3">
         {meetingRecord.map((record, index) => (
           <div
             key={record.MeetingRecordId || index}
