@@ -61,32 +61,6 @@ export const Home = () => {
                 </div>
               </div>
             </div>
-            // <tr key={keys} className="text-center">
-            //   <td className="rounded-bl-xl lg:table-cell">
-            //     <>第{pickData.get("session")}回</>
-            //   </td>
-            //   <td className="p-0 text-center">
-            //     <>{pickData.get("nameOfHouse")}</>
-            //   </td>
-            //   <td className="lg:text:lg md:text-md p-0 text-center text-xs">
-            //     <>{pickData.get("nameOfMeeting")}</>
-            //   </td>
-            //   <td className="hidden lg:table-cell">
-            //     <>{pickData.get("issue")}</>
-            //   </td>
-            //   <td className="hidden lg:table-cell">
-            //     <>{pickData.get("date")}</>
-            //   </td>
-            //   <td className="rounded-br-xl">
-            //     <button
-            //       type="button"
-            //       className="flex items-center rounded-full bg-sub_blue p-2"
-            //       onClick={() => detail(keys)}
-            //     >あ
-            //       {/* <MdiChat /> */}
-            //     </button>
-            //   </td>
-            // </tr>
           );
         })}
       </div>
