@@ -20,7 +20,7 @@ export const Terms = () => {
 
   useEffect(() => {
     localStorage.getItem("terms") ? navigate("/home") : navigate("/");
-  }, [setState]);
+  }, [state]);
 
   return (
     <main className="bg-bac-main flex-1">
