@@ -20,6 +20,7 @@ export const Terms = () => {
 
   useEffect(() => {
     localStorage.getItem("terms") ? navigate("/home") : navigate("/");
+    setState(true);
   }, [state]);
 
   return (
