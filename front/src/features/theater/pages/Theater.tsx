@@ -87,7 +87,6 @@ export const Theater = () => {
     }
   }, [currSpeechRecord, speechRecords]);
 
-  // 次のスピーチレコード
   const next = () => {
     setCurrSpeechRecord((curr) => {
       curr === speechRecords.length - 1 && finish();
@@ -123,10 +122,24 @@ export const Theater = () => {
   return (
     <div className="theater-bac">
       <Agenda title={location.state.title}></Agenda>
+      <button
+        type="button"
+        className="absolute bottom-40 left-24 bg-white p-3 text-3xl text-black"
+        onClick={() => back()}
+      >
+        前へ
+      </button>
       <Summary_text
         speechRecord={speechRecords}
         currSpeechRecord={currSpeechRecord}
       ></Summary_text>
+      <button
+        type="button"
+        className="absolute bottom-40 right-24 bg-white p-3 text-3xl text-black"
+        onClick={() => next()}
+      >
+        次へ
+      </button>
     </div>
   );
 };

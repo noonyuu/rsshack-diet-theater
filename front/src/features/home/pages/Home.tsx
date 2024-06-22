@@ -29,32 +29,32 @@ export const Home = () => {
     navigate("/theater", { state: entity });
   };
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "https://" + path + "/app/meeting_record/select/all",
-        // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
-      );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://" + path + "/app/meeting_record/select/all",
+          // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
+        );
 
-      if (Array.isArray(response.data)) {
-        setMeetingRecord(response.data);
-      } else {
-        console.error("Unexpected response structure:", response.data);
+        if (Array.isArray(response.data)) {
+          setMeetingRecord(response.data);
+        } else {
+          console.error("Unexpected response structure:", response.data);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    };
 
-  fetchData();
-}, []);
+    fetchData();
+  }, []);
   return (
     <main>
       {/* ヘッダーで隠れるところ */}
       <div className="pt-16"></div>
       {/* <CustomDateSelect />*/}
-      <div className="bg-subwhite mx-6 mt-20 grid justify-center rounded-3xl md:mx-16 md:mt-28 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-6 mt-20 grid justify-center rounded-3xl bg-subwhite md:mx-16 md:mt-28 md:grid-cols-2 lg:grid-cols-3">
         {/* <div className="w-100 h-500 bg-subwhite mx-16 mt-28 flex flex-wrap justify-center rounded-3xl"> */}
         {meetingRecord.map((record, index) => (
           <div
@@ -74,10 +74,14 @@ useEffect(() => {
                 <img src="" alt="" />
               )}
             </button>
-            <div className="h-1/3 absolute left-[18%] top-[20%] w-[44%] overflow-hidden text-sm md:left-[20%] md:top-[30%] md:w-[40%] md:text-lg hover:overflow-visible hover:bg-white hover:h-full z-10">
+            <div className="absolute left-[18%] top-[20%] z-10 h-1/3 w-[44%] overflow-auto text-sm md:left-[20%] md:top-[30%] md:w-[40%] md:text-md">
               <div className="block">
                 <>第{record.Session}回&emsp;</>
-                <>{record.NameOfMeeting}</>
+                <div
+                  onClick={() => detail(record.IssueID, record.NameOfMeeting)}
+                >
+                  {record.NameOfMeeting}
+                </div>
               </div>
             </div>
             <div className="absolute bottom-8 right-6 w-[50%] text-sm text-current md:bottom-[26%] md:text-base">
@@ -159,7 +163,7 @@ useEffect(() => {
 //               </div>
 //             </div>
 //           );
-//         })} */} 
+//         })} */}
 //         {meetingRecord.map((record, index) => (
 //           <div
 //             key={record.MeetingRecordId || index}

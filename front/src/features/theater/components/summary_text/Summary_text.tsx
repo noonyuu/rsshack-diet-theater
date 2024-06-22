@@ -10,10 +10,8 @@ interface Props {
 
 export const Summary_text: React.FC<Props> = ({
   speechRecord,
-  currSpeechRecord,
+  currSpeechRecord
 }) => {
-  
-
   if (
     speechRecord.length === 0 ||
     currSpeechRecord < 0 ||
@@ -48,11 +46,6 @@ export const Summary_text: React.FC<Props> = ({
             ))}
         </p>
       </div>
-      <button
-        type="button"
-        className="absolute right-[20%] top-[30%] text-3xl text-white"
-        // onClick={() => next()}
-      ></button>
     </div>
   );
 };

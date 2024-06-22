@@ -5,7 +5,8 @@ body {
 
 .wrapper {
   position: absolute;
-  left: 350px;
+  left: 50%;
+  transform: translate(-50%);
   bottom: 50px;
 }
 
