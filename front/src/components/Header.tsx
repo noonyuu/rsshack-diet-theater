@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GetUser } from "../utils/Auth";
+import logo from "../features/login/assets/diet-logo.png"
 
 export default function App() {
   const navigate = useNavigate();
@@ -108,9 +109,9 @@ export default function App() {
       </h1>
       <div className="absolute right-2 flex h-full items-center">
         {/* TODO: icon */}
-        {profile.length > 0 && (
+        {profile.length && (
           <img
-            src={profile[0].avatar_url}
+            src={profile[0].avatar_url || logo}
             alt=""
             className="size-8 rounded-full"
           />
