@@ -22,6 +22,7 @@ export const Summary_text: React.FC<Props> = ({
 
   // speechRecord[currSpeechRecord] が存在することを確認してから、Speaker プロパティにアクセス
   const speaker = speechRecord[currSpeechRecord]?.Speaker || "";
+  const link = "https://google.com/search?q=" + speechRecord[currSpeechRecord].Speaker
 
   return (
     <div className="wrapper">
@@ -30,7 +31,7 @@ export const Summary_text: React.FC<Props> = ({
         arg={speechRecord[currSpeechRecord].AnimationPoint}
       ></Animation>
       <div className="name_area_bg">
-        <p className="name_area">{speechRecord[currSpeechRecord].Speaker}</p>
+        <p className="name_area"><a href={link}>{speechRecord[currSpeechRecord].Speaker}</a></p>
       </div>
       <div className="text_area_bg">
         <p className="text_area">
