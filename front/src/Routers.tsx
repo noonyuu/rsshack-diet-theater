@@ -13,35 +13,35 @@ export const Routers = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      localStorage.getItem("terms") ? "/home" : navigate("/");
+      localStorage.getItem("terms") ? navigate("/home") : navigate("/");
     }, []);
     
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const [logInned, userInfo] = await GetUser();
-  //       console.log(userInfo);
-  //       if (logInned && userInfo) {
-  //         // トークン更新
-  //         RefreshToken();
-  //         // ログイン済みの場合
-  //         if (
-  //           window.location.pathname === "/" ||
-  //           window.location.pathname === "/login"
-  //         ) {
-  //           navigate("/home");
-  //         } else {
-  //           navigate(window.location.pathname, { replace: true });
-  //         }
-  //       } else {
-  //         navigate("/login");
-  //       }
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchUser();
-  // }, []);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const [logInned, userInfo] = await GetUser();
+        // console.log(userInfo);
+        if (logInned && userInfo) {
+          // トークン更新
+          RefreshToken();
+          // ログイン済みの場合
+          if (
+            window.location.pathname === "/" ||
+            window.location.pathname === "/login"
+          ) {
+            navigate("/");
+          } else {
+            navigate(window.location.pathname, { replace: true });
+          }
+        } else {
+          navigate("/login");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const routesWithoutHeaderAndFooter = [
     { path: "/login", element: <Login /> },
