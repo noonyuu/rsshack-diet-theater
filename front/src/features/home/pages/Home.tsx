@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { DateSelect, useDateSelect } from "react-ymd-date-select";
 import { useNavigate } from "react-router-dom";
-// import { getPostData } from "../hooks/getOriginal";
-import { CustomDateSelect } from "../components/CustomDataSelect";
+// import CustomDateSelect from "../components/CustomDataSelect";
 import san_ticket from "../assets/san_ticket.svg";
 import syu_ticket from "../assets/syu_ticket.svg";
 import ryou_ticket from "../assets/ryou_tcket.svg";
+import ryou_ticket_done from "../assets/ryou_ticket_done.svg";
+import san_ticket_done from "../assets/san_ticket_done.svg";
+import syu_ticket_done from "../assets/syu_ticket_done.svg";
+
 import axios from "axios";
 
-var path = import.meta.env.VITE_APP_PATH;
+const path = import.meta.env.VITE_APP_PATH;
 
 export const Home = () => {
   const navigate = useNavigate();
   const [meetingRecord, setMeetingRecord] = useState<any[]>([]);
-  const [api, setApi] = useState<Map<string, any>>(new Map());
-  const [speaker, setSpeaker] = useState<any[]>([]);
+  const [use, setUse] = useState<string[]>([]);
 
   interface Entity {
     detailId: string;
@@ -26,6 +27,16 @@ export const Home = () => {
       detailId: val,
       title: NameOfHouse,
     };
+    
+    // 現在のuse配列を取得
+    const currentUse = JSON.parse(sessionStorage.getItem("use") || "[]");
+    
+    // 新しい値を追加
+    const updatedUse = [...currentUse, entity.detailId];
+    
+    // セッションストレージに保存
+    sessionStorage.setItem("use", JSON.stringify(updatedUse));
+    setUse(updatedUse); // useの状態を更新
     navigate("/theater", { state: entity });
   };
 
@@ -33,8 +44,7 @@ export const Home = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://" + path + "/app/meeting_record/select/all",
-          // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
+          `https://${path}/app/meeting_record/select/all`
         );
 
         if (Array.isArray(response.data)) {
@@ -46,16 +56,15 @@ export const Home = () => {
         console.error(error);
       }
     };
-
+    setUse(JSON.parse(sessionStorage.getItem("use") || "[]"));
     fetchData();
   }, []);
+
   return (
     <main>
-      {/* ヘッダーで隠れるところ */}
       <div className="pt-16"></div>
       {/* <CustomDateSelect />*/}
       <div className="mx-6 mt-20 grid justify-center rounded-3xl bg-subwhite md:mx-16 md:mt-28 md:grid-cols-2 lg:grid-cols-3">
-        {/* <div className="w-100 h-500 bg-subwhite mx-16 mt-28 flex flex-wrap justify-center rounded-3xl"> */}
         {meetingRecord.map((record, index) => (
           <div
             key={record.MeetingRecordId || index}
@@ -64,27 +73,40 @@ export const Home = () => {
             <button
               onClick={() => detail(record.IssueID, record.NameOfMeeting)}
             >
-              {record.NameOfHouse === "参議院" ? (
-                <img src={san_ticket} alt="" className="w-[100%]" />
-              ) : record.NameOfHouse === "衆議院" ? (
-                <img src={syu_ticket} alt="" className="w-[100%]" />
-              ) : record.NameOfHouse === "両院" ? (
-                <img src={ryou_ticket} alt="" className="w-[100%]" />
+              {use.includes(record.IssueID) ? (
+                record.NameOfHouse === "参議院" ? (
+                  <img src={san_ticket_done} alt="" className="w-[100%]" />
+                ) : record.NameOfHouse === "衆議院" ? (
+                  <img src={syu_ticket_done} alt="" className="w-[100%]" />
+                ) : record.NameOfHouse === "両院" ? (
+                  <img src={ryou_ticket_done} alt="" className="w-[100%]" />
+                ) : (
+                  <img src="" alt="" />
+                )
               ) : (
-                <img src="" alt="" />
+                record.NameOfHouse === "参議院" ? (
+                  <img src={san_ticket} alt="" className="w-[100%]" />
+                ) : record.NameOfHouse === "衆議院" ? (
+                  <img src={syu_ticket} alt="" className="w-[100%]" />
+                ) : record.NameOfHouse === "両院" ? (
+                  <img src={ryou_ticket} alt="" className="w-[100%]" />
+                ) : (
+                  <img src="" alt="" />
+                )
               )}
             </button>
-            <div className="absolute left-[18%] top-[20%] z-10 h-1/3 w-[44%] overflow-auto text-sm md:left-[20%] md:top-[30%] md:w-[40%] md:text-md">
+            <div className="absolute left-[18%] top-[20%] z-10 h-1/3 w-[44%] overflow-auto text-sm md:left-[20%] md:top-[30%] md:w-[40%] md:text-md hidden-scrollbar">
               <div className="block">
                 <>第{record.Session}回&emsp;</>
                 <div
+                  className="w-[70%]"
                   onClick={() => detail(record.IssueID, record.NameOfMeeting)}
                 >
                   {record.NameOfMeeting}
                 </div>
               </div>
             </div>
-            <div className="absolute bottom-8 right-6 w-[50%] text-sm text-current md:bottom-[26%] md:text-base">
+            <div className="absolute bottom-8 right-6 w-[70%] text-sm text-current md:bottom-[26%] md:text-base">
               <>{record.Date}</>
             </div>
           </div>
@@ -93,6 +115,7 @@ export const Home = () => {
     </main>
   );
 };
+
 
 // import { useEffect, useState } from "react";
 // import { DateSelect, useDateSelect } from "react-ymd-date-select";
