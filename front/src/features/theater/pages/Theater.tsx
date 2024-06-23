@@ -4,6 +4,7 @@ import { Summary_text } from "../components/summary_text/Summary_text";
 import { Agenda } from "../components/agenda/Agenda";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Opning } from "../components/animation/Opning";
 
 var path = import.meta.env.VITE_APP_PATH;
 export const Theater = () => {
@@ -101,6 +102,10 @@ export const Theater = () => {
     });
   };
 
+  window.onbeforeunload = function () {
+    return "リロード禁止です！";
+  };
+
   const finish = () => {
     console.log("finish");
     setIsFinish(true);
@@ -108,6 +113,7 @@ export const Theater = () => {
 
   useEffect(() => {
     if (isFinish) {
+       navigate("/home");
       // エンディングアニメーションの終了を待つ
       const timer = setTimeout(() => {
         <div id="wrap"></div>;
@@ -120,11 +126,12 @@ export const Theater = () => {
   }, [isFinish, navigate]);
 
   return (
-    <div className="theater-bac">
+    <div className={`theater-bac hidden lg:flex`}>
+      <Opning />
       <Agenda title={location.state.title}></Agenda>
       <button
         type="button"
-        className="absolute bottom-40 left-24 bg-white p-3 text-3xl text-black"
+        className="absolute bottom-[40%] left-24 bg-white p-3 text-3xl text-black"
         onClick={() => back()}
       >
         前へ
@@ -135,7 +142,7 @@ export const Theater = () => {
       ></Summary_text>
       <button
         type="button"
-        className="absolute bottom-40 right-24 bg-white p-3 text-3xl text-black"
+        className="absolute bottom-[40%] right-24 bg-white p-3 text-3xl text-black"
         onClick={() => next()}
       >
         次へ
